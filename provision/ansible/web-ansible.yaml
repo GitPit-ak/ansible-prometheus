@@ -6,10 +6,10 @@
   tasks:
     - name: Clone of a ansible_prometheus branch
       ansible.builtin.git:
-        repo: https://github.com/GitPit-ak/projects.git
+        repo: https://github.com/GitPit-ak/ansible_prometheus.git
         dest: /git/
-        single_branch: yes
-        version: ansible_prometheus
+        # single_branch: yes
+        # version: main
 
     - name: stop the docker compose file on web01
       command: docker compose -f /git/provision/compose/web-compose-01.yaml down

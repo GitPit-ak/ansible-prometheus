@@ -4,6 +4,8 @@ Welcome to an another project
 So in this project we will launch two web server with one master server
 
 
+Clone this repo into your master vm goto "../provision/ansible/" directory
+run the master and web ansible playbook to setup the complete serup. 
 # NOTE: Everything has to be in containerized. 
 
 In master server we will setup:

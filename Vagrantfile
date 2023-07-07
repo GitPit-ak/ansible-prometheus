@@ -1,6 +1,7 @@
 Vagrant.configure("2") do |config|
-  config.hostmanager.enabled = true 
-  config.hostmanager.manage_host = true
+  # config.hostmanager.enabled = true 
+  # config.hostmanager.manage_host = true
+  # vagrant plugin install vagrant-hostmanager
 
   config.vm.define "master" do |master|
     master.vm.box = "generic/ubuntu2204"
@@ -8,6 +9,7 @@ Vagrant.configure("2") do |config|
     master.vm.network "public_network", ip: "192.168.1.55"
     master.vm.provision  "shell", path: "./provision/motd.sh"
     master.vm.provision  "shell", path: "./provision/docker.sh"
+    master.vm.provision  "shell", path: "./provision/hosts.sh"
     master.vm.provision "shell", inline: <<-SCRIPT
     sudo apt update
     sudo apt install software-properties-common -y
@@ -27,6 +29,7 @@ Vagrant.configure("2") do |config|
     web01.vm.network "public_network", ip: "192.168.1.56"
     web01.vm.provision  "shell", path: "./provision/motd.sh"
     web01.vm.provision  "shell", path: "./provision/docker.sh"
+    web01.vm.provision  "shell", path: "./provision/hosts.sh"
     # web01.vm.synced_folder "./provision/", "/provision"
     web01.vm.provider "virtualbox" do |vb|
       vb.name = "web01"
@@ -40,6 +43,7 @@ Vagrant.configure("2") do |config|
     web02.vm.network "public_network", ip: "192.168.1.57"
     web02.vm.provision  "shell", path: "./provision/motd.sh"
     web02.vm.provision  "shell", path: "./provision/docker.sh"
+    web02.vm.provision  "shell", path: "./provision/hosts.sh"
     # web02.vm.synced_folder "./provision/", "/provision"
     web02.vm.provider "virtualbox" do |vb|
       vb.name = "web02"
