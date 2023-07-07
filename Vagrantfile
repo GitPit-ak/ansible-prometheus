@@ -1,4 +1,6 @@
 Vagrant.configure("2") do |config|
+  config.hostmanager.enabled = true 
+  config.hostmanager.manage_host = true
 
   config.vm.define "master" do |master|
     master.vm.box = "generic/ubuntu2204"
