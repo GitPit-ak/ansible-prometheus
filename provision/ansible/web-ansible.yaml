@@ -1,0 +1,30 @@
+---
+- name: setting up dockerized env
+  hosts: webserver
+  become: yes
+
+  tasks:
+    - name: Clone of a ansible_prometheus branch
+      ansible.builtin.git:
+        repo: https://github.com/GitPit-ak/projects.git
+        dest: /git/
+        single_branch: yes
+        version: ansible_prometheus
+
+    - name: stop the docker compose file on web01
+      command: docker compose -f /git/provision/compose/web-compose-01.yaml down
+      when: ansible_nodename == "web01" 
+      ignore_errors: yes
+
+    - name: run the docker compose file on web01
+      command: docker compose -f /git/provision/compose/web-compose-01.yaml up -d
+      when: ansible_nodename == "web01" 
+
+    - name: stop the docker compose file on web02
+      command: docker compose -f /git/provision/compose/web-compose-02.yaml down
+      when: ansible_nodename == "web02" 
+      ignore_errors: yes
+
+    - name: run the docker compose file on web02
+      command: docker compose -f /git/provision/compose/web-compose-02.yaml up -d
+      when: ansible_nodename == "web02" 

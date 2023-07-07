@@ -1,0 +1,101 @@
+---
+version : "3.3"
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    ports:
+      - "8000:8000"
+      - "9443:9443"
+      - "9000:9000"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "portainer-data:/data"
+      - ../data/pass:/tmp/portainer_password
+    command: --admin-password-file /tmp/portainer_password
+    restart: unless-stopped
+    networks: 
+      - monitoring_net
+  
+  
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ../data:/config
+      - prometheus-data:/prometheus
+    command:
+      - "--config.file=/config/prometheus.yml"
+    restart: unless-stopped
+    networks: 
+      - monitoring_net
+
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=${ADMIN_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    volumes:
+      - ../data/datasource:/etc/grafana/provisioning/datasources/
+      - ../data/dashboards:/etc/grafana/provisioning/dashboards/
+      - "grafana_data:/var/lib/grafana"
+    networks: 
+      - monitoring_net
+
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    container_name: node_exporter
+    command:
+      - '--path.rootfs=/host'
+    # network_mode: host
+    pid: host
+    restart: unless-stopped
+    volumes:
+      - '/:/host:ro,rslave'
+    networks: 
+      - monitoring_net
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor
+    container_name: cadvisor
+    # ports:
+    #   - 8080:8080
+    volumes:
+      - /:/rootfs:ro 
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro  
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    privileged: true
+    networks: 
+      - monitoring_net
+    devices:
+      - /dev/kmsg
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ../data/default.conf:/etc/nginx/conf.d/default.conf
+
+
+networks:
+  monitoring_net:
+      driver: bridge
+
+volumes: 
+    portainer-data: {}
+    prometheus-data: {}
+    grafana_data: {}

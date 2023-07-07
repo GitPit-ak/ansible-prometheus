@@ -1,0 +1,16 @@
+---
+- name: setting up dockerized environment 
+  hosts: master
+  become: yes
+
+  tasks:
+
+  - name: stop the docker compose file
+    command: docker compose -f master.yaml down
+    args:
+      chdir: "{{ playbook_dir }}/../compose"
+
+  - name: run the docker compose file
+    command: docker compose -f master.yaml up -d
+    args:
+      chdir: "{{ playbook_dir }}/../compose"
