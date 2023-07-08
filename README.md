@@ -27,7 +27,7 @@ Goals:
 - monitor all the hosts with prometheus and grafana included docker container's monitoring.
 - setup alerting for any error e.g host down, disk goes above 80% etc.
 
-what we have to do achive this goal.
+Flow of execution to achive this goal.
 - vagrant will launch all three vm's (1 master, 2 web server)
 - provision master server with ansible
 - provision our both web server's using ansible playbook's
