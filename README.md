@@ -1,4 +1,5 @@
 # DevOps Project
+# Automated web server setup with ansible. (Locally with vm's)
 
 Welcome to an another project
 So in this project we will launch two web server with one master server
