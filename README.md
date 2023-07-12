@@ -4,7 +4,7 @@
 ![digram drawio (5)](https://github.com/GitPit-ak/ansible-prometheus/assets/44562876/9c0af54c-3235-4701-8027-e7ecfaf00e15)
 
 Welcome to an another project
-So in this project we will launch two web server with one master server
+so in this project we will launch two web server with one master server
 
 Clone this repo into your master vm goto "../provision/ansible/" directory
 run the master and web ansible playbook to setup the complete serup. 
