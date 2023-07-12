@@ -1,8 +1,7 @@
 # DevOps Project
 # Automated web server setup with ansible. (Locally with vm's)
 
-![digram drawio (4)](https://github.com/GitPit-ak/ansible-prometheus/assets/44562876/2a9a58cc-0e9f-4554-9cea-0a31ecc2b17a)
-
+![digram drawio (5)](https://github.com/GitPit-ak/ansible-prometheus/assets/44562876/9c0af54c-3235-4701-8027-e7ecfaf00e15)
 
 Welcome to an another project
 So in this project we will launch two web server with one master server
