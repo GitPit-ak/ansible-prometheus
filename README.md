@@ -1,9 +1,11 @@
 # DevOps Project
 # Automated web server setup with ansible. (Locally with vm's)
 
+![digram drawio (4)](https://github.com/GitPit-ak/ansible-prometheus/assets/44562876/2a9a58cc-0e9f-4554-9cea-0a31ecc2b17a)
+
+
 Welcome to an another project
 So in this project we will launch two web server with one master server
-
 
 Clone this repo into your master vm goto "../provision/ansible/" directory
 run the master and web ansible playbook to setup the complete serup. 
@@ -11,8 +13,8 @@ run the master and web ansible playbook to setup the complete serup.
 
 In master server we will setup:
 - docker
-- portainer
-- prometheus 
+- portainer-CE
+- prometheus
 - nginx
 - grafana
 
